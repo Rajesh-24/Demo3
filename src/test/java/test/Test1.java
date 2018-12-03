@@ -3,6 +3,7 @@ package test;
 import static org.testng.Assert.assertEquals;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -12,26 +13,28 @@ public class Test1
 {
 	WebDriver driver;
 	
+	
 	@BeforeMethod
 	public void setUp()
 	{
-		
-		driver = new FirefoxDriver();
+		System.setProperty("webdriver.chrome.driver", "E:\\Selenium Setup\\Chrome Driver\\chromedriver.exe");
+		driver = new ChromeDriver();
+		driver.manage().window().maximize();
 		driver.get("https://www.javabykiran.com/");
-		
 	}
 	
-	@Test
+	@Test(priority=1)
 	public void pageTitleTest()
 	{
-		 String actual =driver.getTitle();
-		assertEquals(actual , "Java Classes in Pune | Selenium Training | Python Courses in pune");
+		String actaul =driver.getTitle();
+		
+		assertEquals(actaul, "Java Classes in Pune | Selenium Training | Python Courses in pune","Title Doesn;t Match");
 	}
 	
 	@AfterMethod
-	public void close() {
-		
-		driver.quit();
+	public void tearDown()
+	{
+		driver.quit();		
 	}
 
 }
